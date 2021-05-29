@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shopping List</title>
+        <style>
+            html,
+            body {
+                font-family: "Lato", sans-serif;
+                color: slategray;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            h1 {
+                color: slateblue;
+                font-weight: 900;
+            }
+
+            .shopping-list {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+            }
+
+            .shopping-list__item {
+                display: flex;
+                justify-content: space-between;
+                border: 1px solid rgba(112, 128, 144, 0.342);
+                border-bottom: unset;
+                padding: 1rem 0.5rem;
+            }
+            .shopping-list__item:last-of-type {
+                border-bottom: 1px solid rgba(112, 128, 144, 0.342);
+            }
+
+            .shopping-list__item:hover {
+                border: 1px solid slategray;
+                cursor: pointer;
+            }
+
+            .item__close-icon {
+                width: 0.5rem;
+                height: 0.5rem;
+            }
+
+            .item__close-icon:hover {
+                color: salmon;
+                font-weight: 700;
+            }
+
+            #shopping-list-controls .controls {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #button-add-item {
+                border: 0;
+                padding: 0.25rem 1rem;
+                background-color: slateblue;
+                color: white;
+                border-radius: 10px;
+            }
+            #input-item-name {
+                outline: 0;
+                border: 1px solid rgba(112, 128, 144, 0.342);
+                padding: 0.25rem 1rem;
+                border-radius: 10px;
+                color: slategray;
+            }
+            label {
+                font-size: 0.85rem;
+            }
+            #input-item-name:hover,
+            #input-item-name:focus-within {
+                border: 1px solid slategray;
+            }
+
+            .credits{
+                font-size: 0.75rem;
+            }
+        </style>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,400&display=swap" rel="stylesheet">        
+    </head>
+    <body>
+        <main>
+            <h1>What will you buy?</h1>
+            <label for="input-item-name">Enter Item Name</label>
+            <div id="shopping-list-controls">
+                <div class="controls"><input type="text" id="input-item-name" /><button id="button-add-item">Add</button></div>
+            </div>
+            <br />
+            <ul class="shopping-list"></ul>
+        </main>
+        <footer>
+            <small class="credits">By John Rey Faciolan</small>
+        </footer>
+        <script>
+            var button_add_item = document.querySelector("#button-add-item");
+            var input_item_name = document.querySelector("#input-item-name");
+            var shopping_list = document.querySelector(".shopping-list");
+            var close_icons = document.querySelectorAll(".item__close-icon");
+
+            /* Validates user input if empty or not returns  */
+            function isInputEmpty() {
+                if (input_item_name.value.length > 0) {
+                    return false;
+                }
+                return true;
+            }
+
+            // To be called once a new shopping item was created. this function will attach a click event listener to all close-icons
+            function refreshCloseIconInstances(){
+                close_icons = document.querySelectorAll(".item__close-icon");
+                close_icons.forEach(icon => {
+                    icon.addEventListener("click", function(){
+                        icon.parentElement.remove();
+                    })
+                })
+            }
+
+            function addShoppingItem() {
+                // Create reference to newly created DOM elements
+                var shopping_list_item = document.createElement("li"); //Parent
+                var item_name = document.createElement("span"); // Child
+                var close_icon = document.createElement("span"); // Child
+
+                // Add TextNodes item_name and close_icon
+                item_name.appendChild(document.createTextNode(input_item_name.value));
+                close_icon.appendChild(document.createTextNode("x"));
+
+                // Add required classes for styling
+                shopping_list_item.className = "shopping-list__item";
+                item_name.className = "item__name";
+                close_icon.className = "item__close-icon";
+
+                // Append the child elements to the parent li element
+                shopping_list_item.appendChild(item_name);
+                shopping_list_item.appendChild(close_icon);
+
+                // Add the generated li element to the shopping_list element
+                shopping_list.appendChild(shopping_list_item); 
+
+                // Clear the input
+                input_item_name.value = "";
+
+                // Attach event listener to newly created close icons.
+                refreshCloseIconInstances();
+                
+            }
+
+            input_item_name.addEventListener("keypress", function (event) {
+                if (!isInputEmpty() && event.keyCode === 13) {
+                    addShoppingItem();
+                }
+            });
+
+            button_add_item.addEventListener("click", function() {
+                if (!isInputEmpty()) {
+                    addShoppingItem();
+                }
+            })
+        </script>
+    </body>
+</html>
