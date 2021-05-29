@@ -91,9 +91,14 @@
             .credits{
                 font-size: 0.75rem;
             }
+
+            .done {
+                font-weight: 300;
+                text-decoration: line-through;
+            }
         </style>
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,400&display=swap" rel="stylesheet">        
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet">
     </head>
     <body>
         <main>
@@ -113,6 +118,7 @@
             var input_item_name = document.querySelector("#input-item-name");
             var shopping_list = document.querySelector(".shopping-list");
             var close_icons = document.querySelectorAll(".item__close-icon");
+            var shopping_list_items = document.querySelectorAll(".shopping-list__item");
 
             /* Validates user input if empty or not returns  */
             function isInputEmpty() {
@@ -130,6 +136,20 @@
                         icon.parentElement.remove();
                     })
                 })
+            }
+
+            function refreshShoppingListItemInstances (){
+                shopping_list_items = document.querySelectorAll(".shopping-list__item");
+                shopping_list_items.forEach(item => {
+                    item.addEventListener("click", function (){
+                        if(item.children[0].className !== "done"){
+                            item.children[0].className = "done";
+                        }
+                        else {
+                            item.children[0].className = ""
+                        }
+                    })
+                });
             }
 
             function addShoppingItem() {
@@ -159,6 +179,7 @@
 
                 // Attach event listener to newly created close icons.
                 refreshCloseIconInstances();
+                refreshShoppingListItemInstances();
                 
             }
 
