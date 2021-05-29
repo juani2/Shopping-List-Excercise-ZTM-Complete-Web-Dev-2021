@@ -7,6 +7,8 @@ Using the Shopping List files from the previous videos update the shopping list 
 
 3. **BONUS**: When adding a new list item, it automatically adds the delete button next to it (hint: be sure to check if new items are clickable too!)
 
+## Solution Screenshot
+![Shopping List Preview](./screenshot.png)
 
 ## Live Site URL
 [Solution Preview](https://app.netlify.com/sites/hungry-meitner-12c2df/overview)
