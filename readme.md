@@ -1,4 +1,4 @@
-#Exercise: DOM Events
+# Exercise: DOM Events
 Using the Shopping List files from the previous videos update the shopping list app to do the following:
 
 1. If you click on the list item, it toggles the `.done`  class on and off.
