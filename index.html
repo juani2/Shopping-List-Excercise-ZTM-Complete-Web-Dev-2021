@@ -88,7 +88,7 @@
                 border: 1px solid slategray;
             }
 
-            .credits{
+            .credits {
                 font-size: 0.75rem;
             }
 
@@ -97,8 +97,8 @@
                 text-decoration: line-through;
             }
         </style>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet" />
     </head>
     <body>
         <main>
@@ -128,33 +128,6 @@
                 return true;
             }
 
-            // To be called once a new shopping item was created.
-            // this function will attach a click event listener to all close-icons
-            function refreshCloseIconInstances(){
-                close_icons = document.querySelectorAll(".item__close-icon"); 
-                close_icons.forEach(icon => {
-                    icon.addEventListener("click", function(){
-                        icon.parentElement.remove();
-                    })
-                })
-            }
-
-            // To be called once a new shopping item was created.
-            // this function will attach a click event listener to all shopping list items
-            function refreshShoppingListItemInstances (){
-                shopping_list_items = document.querySelectorAll(".shopping-list__item"); // Refreshes all references to the list items
-                shopping_list_items.forEach(item => {   // Re-attach event listeners to each item
-                    item.addEventListener("click", function (){
-                        if(item.children[0].className !== "done"){
-                            item.children[0].className = "done";
-                        }
-                        else {
-                            item.children[0].className = ""
-                        }
-                    })
-                });
-            }
-
             function addShoppingItem() {
                 // Create reference to newly created DOM elements
                 var shopping_list_item = document.createElement("li"); //Parent
@@ -175,15 +148,24 @@
                 shopping_list_item.appendChild(close_icon);
 
                 // Add the generated li element to the shopping_list element
-                shopping_list.appendChild(shopping_list_item); 
+                shopping_list.appendChild(shopping_list_item);
+
+                // Attach event listener to newly created close icons.
+                close_icon.addEventListener("click", function () {
+                    icon.parentElement.remove();
+                });
+
+                // Attach event listener to newly shopping list items.
+                shopping_list_item.addEventListener("click", function () {
+                    if (shopping_list_item.children[0].className !== "done") {
+                        shopping_list_item.children[0].className = "done";
+                    } else {
+                        shopping_list_item.children[0].className = "";
+                    }
+                });
 
                 // Clear the input
                 input_item_name.value = "";
-
-                // Attach event listener to newly created close icons.
-                refreshCloseIconInstances();
-                refreshShoppingListItemInstances();
-                
             }
 
             input_item_name.addEventListener("keypress", function (event) {
@@ -192,11 +174,11 @@
                 }
             });
 
-            button_add_item.addEventListener("click", function() {
+            button_add_item.addEventListener("click", function () {
                 if (!isInputEmpty()) {
                     addShoppingItem();
                 }
-            })
+            });
         </script>
     </body>
 </html>
