@@ -11,7 +11,7 @@ Using the Shopping List files from the previous videos update the shopping list 
 ![Shopping List Preview](./screenshot.png)
 
 ## Live Site URL
-[Solution Preview](https://app.netlify.com/sites/hungry-meitner-12c2df/overview)
+[Solution Preview](https://hungry-meitner-12c2df.netlify.app/)
 
 Good Luck!
 
